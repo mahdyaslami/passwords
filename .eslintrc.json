@@ -1,0 +1,69 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": false,
+      "vue/setup-compiler-macros": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "plugin:vue/vue3-strongly-recommended",
+      "plugin:vue/vue3-recommended",
+      "airbnb-base"
+    ],
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    },
+    "plugins": [
+      "vue"
+    ],
+    "settings": {
+      "import/resolver": {
+        "alias": {
+          "map": [
+            [
+              "@",
+              "./src"
+            ]
+          ],
+          "extensions": [
+            ".js",
+            ".vue"
+          ]
+        }
+      }
+    },
+    "rules": {
+      "eqeqeq": "off",
+      "import/extensions": [
+        "error",
+        "never"
+      ],
+      "import/no-dynamic-require": "off",
+      "import/no-extraneous-dependencies": "off",
+      "import/prefer-default-export": "off",
+      "max-len": "warn",
+      "no-console": "warn",
+      "no-debugger": "warn",
+      "no-param-reassign": [
+        "error",
+        {
+          "props": false
+        }
+      ],
+      "no-plusplus": "off",
+      "no-undef": "warn",
+      "no-unused-vars": "warn",
+      "no-use-before-define": "off",
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "warn",
+        "never"
+      ],
+      "vue/multi-word-component-names": "off"
+    }
+  }
