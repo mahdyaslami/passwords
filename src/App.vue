@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { usePassword } from './hooks/passwords'
 
-const password = usePassword()
+const { passwords, createGroup } = usePassword()
 
 const title = ref('')
 
@@ -10,8 +10,9 @@ const title = ref('')
 
 <template>
   <div>
-    <form @submit.prevent="password.createGroup(title)">
+    <form @submit.prevent="createGroup(title)">
       <input
+        v-model="title"
         class="border border-gray-400 py-2 rounded mr-2"
         type="text"
         required
@@ -25,8 +26,11 @@ const title = ref('')
       </button>
     </form>
 
-    <div>
-      {{ password.passwords }}
+    <div
+      v-for="group in passwords"
+      :key="group.id"
+    >
+      <h2>{{ group.title }}</h2>
     </div>
   </div>
 </template>
