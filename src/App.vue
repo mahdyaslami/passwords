@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xl mx-auto pt-20">
-    <div>
+    <div class="mb-4">
       <label
         for="search"
         class="block text-sm font-medium text-gray-700"
@@ -21,9 +21,7 @@
       :key="row.id"
     >
       <template v-if="row.type === 'pair'">
-        <span>{{ row.key }}</span><span> : </span>
-
-        <span>{{ row.value }}</span>
+        <pair-card :item="row" />
       </template>
     </div>
   </div>
@@ -31,6 +29,7 @@
 
 <script setup>
 import { useDatabaseStore } from '@/stores/database'
+import PairCard from './components/PairCard'
 
 const database = useDatabaseStore()
 
