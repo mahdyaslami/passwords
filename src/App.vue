@@ -20,7 +20,13 @@
       :key="row.id"
     >
       <template v-if="row.type === 'pair'">
-        <pair-card :item="row" />
+        <pair-card
+          :item="row"
+          class="mb-2"
+        />
+      </template>
+      <template v-else-if="row.type === 'credential'">
+        <credential-card :item="row" />
       </template>
     </div>
   </div>
@@ -30,7 +36,8 @@
 import { useDatabaseStore } from '@/stores/database'
 import BaseInput from '@/components/Input'
 import BaseLabel from '@/components/Label'
-import PairCard from './components/PairCard'
+import PairCard from '@/components/PairCard'
+import CredentialCard from '@/components/CredentialCard'
 
 const database = useDatabaseStore()
 
