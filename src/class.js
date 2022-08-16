@@ -11,4 +11,15 @@ export class Pair {
 }
 
 export class Credential {
+  constructor(title, host, username, password) {
+    this.id = Date.now()
+    this.title = title
+    this.host = host
+    this.username = username
+    this.password = password
+  }
+
+  static make(title, host, username, password) {
+    return new this(title, host, username, password)
+  }
 }

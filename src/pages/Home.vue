@@ -38,7 +38,7 @@
           class="mb-2"
         />
       </template>
-      <template v-else-if="row.type === 'credential'">
+      <template v-else-if="(row instanceof Credential)">
         <credential-card :item="row" />
       </template>
     </div>
@@ -51,7 +51,7 @@ import BaseInput from '@/components/Input'
 import BaseLabel from '@/components/Label'
 import PairCard from '@/components/PairCard'
 import CredentialCard from '@/components/CredentialCard'
-import { Pair } from '@/class'
+import { Pair, Credential } from '@/class'
 
 const database = useDatabaseStore()
 

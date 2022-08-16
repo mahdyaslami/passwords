@@ -1,22 +1,10 @@
 import { reactive } from 'vue'
+import { Pair, Credential } from '@/class'
 
 const database = reactive({
   rows: [
-    {
-      id: 241123,
-      type: 'pair',
-      key: 'external ip',
-      value: '192.168.1.1',
-    },
-
-    {
-      id: 241124,
-      type: 'credential',
-      title: 'Signal',
-      host: '192.168.1.1',
-      username: 'mahdiaslami',
-      password: '123456789',
-    },
+    Pair.make('External ip', '192.168.1.1'),
+    Credential.make('Signal', '192.168.1.1', 'mahdiaslami', '123456789'),
   ],
 
   push(obj) {
