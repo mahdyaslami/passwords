@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="$emit('save', item)">
+  <form @submit.prevent="$emit('save', state)">
     <base-label for="key">
       Key
     </base-label>
