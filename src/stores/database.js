@@ -19,20 +19,38 @@ const database = reactive({
     },
   ],
 
-  createPair(key, value) {
-    this.rows.push({
-      id: this.nextId(),
-      type: 'pair',
-      key,
-      value,
-    })
+  push(obj) {
+    obj.id = Date.now()
+    this.rows.push(obj)
   },
 
-  nextId() {
-    return Date.now()
+  replace(id, obj) {
+    const index = this.rows.findIndex(
+      (el) => el.id == id,
+    )
+
+    this.rows[index] = obj
   },
 })
 
 export function useDatabaseStore() {
   return database
+}
+
+export function usePairStore() {
+  return {
+    create(key, value) {
+      database.push({
+        type: 'pair',
+        key,
+        value,
+      })
+    },
+
+    update(id, key, value) {
+      database.replace(id, {
+        id, key, value,
+      })
+    },
+  }
 }

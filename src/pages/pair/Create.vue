@@ -18,15 +18,15 @@
 </template>
 
 <script setup>
-import { useDatabaseStore } from '@/stores/database'
+import { usePairStore } from '@/stores/database'
 import { useRouter } from 'vue-router'
 import PairForm from './Form'
 
 const router = useRouter()
-const database = useDatabaseStore()
+const pairs = usePairStore()
 
 function save(item) {
-  database.createPair(item.key, item.value)
+  pairs.create(item.key, item.value)
   router.push('/')
 }
 </script>
