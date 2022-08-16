@@ -1,5 +1,18 @@
 <template>
   <div class="max-w-xl mx-auto pt-20">
+    <div class="flex justify-between">
+      <h1 class="text-3xl mb-8">
+        Search
+      </h1>
+
+      <router-link
+        to="/pairs/create"
+        class="text-blue-500 underline"
+      >
+        Create Pair
+      </router-link>
+    </div>
+
     <div class="mb-4">
       <base-label
         for="search"
