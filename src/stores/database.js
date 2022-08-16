@@ -20,7 +20,6 @@ const database = reactive({
   ],
 
   push(obj) {
-    obj.id = Date.now()
     this.rows.push(obj)
   },
 
@@ -39,35 +38,4 @@ const database = reactive({
 
 export function useDatabaseStore() {
   return database
-}
-
-export function usePairStore() {
-  return {
-    create(key, value) {
-      database.push({
-        type: 'pair',
-        key,
-        value,
-      })
-    },
-
-    update(id, key, value) {
-      database.replace(id, {
-        type: 'pair',
-        id,
-        key,
-        value,
-      })
-    },
-
-    find(id) {
-      const r = database.find(id)
-
-      if (r.type === 'pair') {
-        return r
-      }
-
-      return null
-    },
-  }
 }

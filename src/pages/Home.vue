@@ -32,7 +32,7 @@
       v-for="row in database.rows"
       :key="row.id"
     >
-      <template v-if="row.type === 'pair'">
+      <template v-if="(row instanceof Pair)">
         <pair-card
           :item="row"
           class="mb-2"
@@ -51,6 +51,7 @@ import BaseInput from '@/components/Input'
 import BaseLabel from '@/components/Label'
 import PairCard from '@/components/PairCard'
 import CredentialCard from '@/components/CredentialCard'
+import { Pair } from '@/class'
 
 const database = useDatabaseStore()
 

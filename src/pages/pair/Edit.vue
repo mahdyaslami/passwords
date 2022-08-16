@@ -21,18 +21,21 @@
 </template>
 
 <script setup>
-import { usePairStore } from '@/stores/database'
+import { useDatabaseStore } from '@/stores/database'
 import { useRouter, useRoute } from 'vue-router'
 import PairForm from './Form'
 
 const route = useRoute()
 const router = useRouter()
-const pairs = usePairStore()
+const database = useDatabaseStore()
 
-const pair = pairs.find(route.params.id) ?? router.push('/')
+const pair = database.find(route.params.id) ?? router.push('/')
 
 function save(item) {
-  pairs.update(route.params.id, item.key, item.value)
+  pair.key = item.key
+  pair.value = item.value
+  database.replace(route.params.id, pair)
+
   router.push('/')
 }
 </script>
