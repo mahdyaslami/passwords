@@ -31,6 +31,10 @@ const database = reactive({
 
     this.rows[index] = obj
   },
+
+  find(id) {
+    return this.rows.find((el) => el.id == id)
+  },
 })
 
 export function useDatabaseStore() {
@@ -49,8 +53,21 @@ export function usePairStore() {
 
     update(id, key, value) {
       database.replace(id, {
-        id, key, value,
+        type: 'pair',
+        id,
+        key,
+        value,
       })
+    },
+
+    find(id) {
+      const r = database.find(id)
+
+      if (r.type === 'pair') {
+        return r
+      }
+
+      return null
     },
   }
 }
