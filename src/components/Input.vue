@@ -1,24 +1,13 @@
 <template>
   <input
-    v-model="value"
+    :value="modelValue"
     class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
             border-gray-300 rounded-md"
+    @input="$emit('update:modelValue', $event.target.value)"
   >
 </template>
 
 <script setup>
-import { computed } from 'vue'
-
-const props = defineProps(['modelValue'])
-
-const emit = defineEmits(['update:modelValue'])
-
-const value = computed({
-  get() {
-    return props.modelValue
-  },
-  set(val) {
-    emit('update:modelValue', val)
-  },
-})
+defineProps(['modelValue'])
+defineEmits(['update:modelValue'])
 </script>
