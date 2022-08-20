@@ -1,6 +1,7 @@
 export class Pair {
   constructor(key, value, tags = []) {
     this.id = id()
+    this._type = 'PAIR'
     this.key = key
     this.value = value
 
@@ -40,6 +41,7 @@ export class Pair {
 export class Identity {
   constructor(title, host, username, password, tags = []) {
     this.id = id()
+    this._type = 'IDENTITY'
     this.title = title
     this.host = host
     this.username = username
