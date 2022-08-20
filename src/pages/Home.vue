@@ -29,6 +29,7 @@
       <div class="mt-1">
         <base-input
           id="search"
+          v-model="state.predicate"
           type="text"
           placeholder="blograph.ir valasr"
         />
@@ -36,7 +37,7 @@
     </div>
 
     <div
-      v-for="row in database.rows"
+      v-for="row in database.search(state.predicate)"
       :key="row.id"
     >
       <template v-if="(row instanceof Pair)">
@@ -59,7 +60,12 @@ import BaseLabel from '@/components/Label'
 import PairCard from '@/components/PairCard'
 import IdentityCard from '@/components/IdentityCard'
 import { Pair, Identity } from '@/class'
+import { reactive } from 'vue'
 
 const database = useDatabaseStore()
+
+const state = reactive({
+  predicate: '',
+})
 
 </script>

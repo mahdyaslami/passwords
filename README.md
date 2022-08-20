@@ -2,8 +2,8 @@
 
 ## Glossory
 
-| Word     | Definition                     |
-| -------- | ------------------------------ |
-| Identity | Username and Password together |
-|          |                                |
-|          |                                |
+| Word      | Definition                     |
+| --------- | ------------------------------ |
+| Identity  | Username and Password together |
+| predicate |                                |
+|           |                                |

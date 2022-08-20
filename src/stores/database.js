@@ -22,6 +22,19 @@ const database = reactive({
   find(id) {
     return this.rows.find((el) => el.id == id)
   },
+
+  search(predicate) {
+    const predicates = predicate.split(' ')
+      .map((p) => p.trim().toLowerCase())
+      .filter((p) => p.length > 0)
+
+    if (predicates.length > 0) {
+      return this.rows.filter((r) => r.prepareScore(predicates) > 0)
+        .sort((a, b) => a.score - b.score)
+    }
+
+    return this.rows
+  },
 })
 
 export function useDatabaseStore() {
