@@ -34,6 +34,7 @@ const pair = database.find(route.params.id) ?? router.push('/')
 function save(item) {
   pair.key = item.key
   pair.value = item.value
+  pair.tags = item.tags.map((tag) => tag.trim())
   database.replace(route.params.id, pair)
 
   router.push('/')
