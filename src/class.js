@@ -24,10 +24,16 @@ export class Identity {
     this.username = username
     this.password = password
     this.tags = []
+
+    if (Array.isArray(tags)) {
+      this.tags = tags
+    } else {
+      throw new Error('tags argument must be array of string.')
+    }
   }
 
-  static make(title, host, username, password) {
-    return new this(title, host, username, password)
+  static make(title, host, username, password, tags = []) {
+    return new this(title, host, username, password, tags)
   }
 }
 
