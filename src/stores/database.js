@@ -4,7 +4,7 @@ import { Pair, Identity } from '@/class'
 const database = reactive({
   rows: [
     Pair.make('External ip', '192.168.1.1', ['gitlab.com', 'test']),
-    Identity.make('Signal', '192.168.1.1', 'mahdiaslami', '123456789'),
+    Identity.make('Signal', '192.168.1.1', 'mahdiaslami', '123456789', ['signal contest']),
   ],
 
   push(obj) {

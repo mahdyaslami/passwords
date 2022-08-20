@@ -36,6 +36,7 @@ function save(item) {
   identity.host = item.host
   identity.username = item.username
   identity.password = item.password
+  identity.tags = item.tags.map((tag) => tag.trim())
   database.replace(route.params.id, identity)
 
   router.push('/')

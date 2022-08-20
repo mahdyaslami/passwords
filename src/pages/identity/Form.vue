@@ -40,6 +40,16 @@
       type="text"
     />
 
+    <base-label for="tags">
+      Tags (Separate by comma)
+    </base-label>
+    <base-input
+      id="tags"
+      v-model="tags"
+      class="mb-4"
+      type="text"
+    />
+
     <base-button
       type="submit"
     >
@@ -49,7 +59,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import BaseInput from '@/components/Input'
 import BaseLabel from '@/components/Label'
 import BaseButton from '@/components/Button'
@@ -58,8 +68,11 @@ const props = defineProps({
   item: {
     type: Object,
     default: () => ({
-      key: '',
-      value: '',
+      title: '',
+      host: '',
+      username: '',
+      password: '',
+      tags: [],
     }),
   },
 })
@@ -69,6 +82,17 @@ const state = reactive({
   host: props.item.host,
   username: props.item.username,
   password: props.item.password,
+  tags: props.item.tags,
+})
+
+const tags = computed({
+  get() {
+    return state.tags.join(',')
+  },
+
+  set(val) {
+    state.tags = val.split(',')
+  },
 })
 
 defineEmits(['save'])
