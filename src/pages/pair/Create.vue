@@ -27,8 +27,9 @@ const router = useRouter()
 const database = useDatabaseStore()
 
 function save(item) {
+  const tags = item.tags.map((tag) => tag.trim())
   database.push(
-    Pair.make(item.key, item.value, item.tags),
+    Pair.make(item.key, item.value, tags),
   )
 
   router.push('/')
