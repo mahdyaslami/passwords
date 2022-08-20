@@ -39,11 +39,10 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import BaseInput from '@/components/Input'
 import BaseLabel from '@/components/Label'
 import BaseButton from '@/components/Button'
-import { computed } from '@vue/reactivity'
 
 const props = defineProps({
   item: {
