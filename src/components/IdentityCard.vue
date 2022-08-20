@@ -40,12 +40,21 @@
         <p class="text-sm text-gray-500 truncate">
           {{ item.password }}
         </p>
+
+        <div class="mt-4 float-left">
+          <tag
+            v-for="(tag, index) in item.tags"
+            :key="index"
+            class="mr-1"
+          >{{ tag }}</tag>
+        </div>
       </a>
     </div>
   </div>
 </template>
 
 <script setup>
+import Tag from '@/components/Tag'
 
 defineProps({
   item: {
