@@ -10,7 +10,7 @@ export class Pair {
   }
 }
 
-export class Credential {
+export class Identity {
   constructor(title, host, username, password) {
     this.id = Date.now()
     this.title = title
