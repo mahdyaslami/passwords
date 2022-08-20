@@ -1,6 +1,6 @@
 export class Pair {
   constructor(key, value, tags = []) {
-    this.id = Date.now()
+    this.id = id()
     this.key = key
     this.value = value
 
@@ -17,8 +17,8 @@ export class Pair {
 }
 
 export class Identity {
-  constructor(title, host, username, password) {
-    this.id = Date.now()
+  constructor(title, host, username, password, tags = []) {
+    this.id = id()
     this.title = title
     this.host = host
     this.username = username
@@ -29,4 +29,8 @@ export class Identity {
   static make(title, host, username, password) {
     return new this(title, host, username, password)
   }
+}
+
+function id() {
+  return Math.floor(Math.random() * 1000000)
 }
