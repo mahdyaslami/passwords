@@ -8,6 +8,13 @@
         Create Pair
       </router-link>
 
+      <router-link
+        to="/identities/create"
+        class="text-blue-500 underline float-right mr-2"
+      >
+        Create Identity
+      </router-link>
+
       <h1 class="text-3xl mb-8">
         Search
       </h1>

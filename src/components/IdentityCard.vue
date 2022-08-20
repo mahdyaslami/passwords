@@ -9,10 +9,10 @@
         href="#"
         class="focus:outline-none"
       >
-        <span
-          class="absolute inset-0"
-          aria-hidden="true"
-        />
+        <router-link
+          :to="`/identities/${item.id}/edit`"
+          class="text-sm text-blue-600 underline float-right"
+        >Edit</router-link>
         <p class="text-sm font-medium text-gray-900">
           Title
         </p>
