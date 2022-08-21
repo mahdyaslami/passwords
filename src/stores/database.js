@@ -1,12 +1,9 @@
 import { reactive } from 'vue'
-import { Pair, Identity } from '@/class'
+import { Factory } from '@/class'
 import { exportObjectAsJson } from '@/helpers'
 
 const database = reactive({
-  rows: [
-    Pair.make('External ip', '192.168.1.1', ['gitlab.com', 'test']),
-    Identity.make('Signal', '192.168.1.1', 'mahdiaslami', '123456789', ['signal contest']),
-  ],
+  rows: [],
 
   push(obj) {
     this.rows.push(obj)
@@ -48,7 +45,15 @@ const database = reactive({
 
     return `passwords-${date}`
   },
+
+  import(arr) {
+    this.rows = arr.map((el) => Factory.map(el))
+  },
 })
+
+fetch('/database.json')
+  .then((response) => response.json())
+  .then((json) => database.import(json))
 
 export function useDatabaseStore() {
   return database

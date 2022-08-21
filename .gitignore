@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # App
-database.json
+public/database.json
