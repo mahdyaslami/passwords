@@ -1,16 +1,23 @@
 <template>
   <div class="max-w-xl mx-auto pt-20">
     <div>
+      <button
+        class="float-right w-6 h-6 ml-4"
+        @click="database.export()"
+      >
+        <icon-export />
+      </button>
+
       <router-link
         to="/pairs/create"
-        class="text-blue-500 underline float-right"
+        class="text-blue-500 underline float-right ml-2"
       >
         Create Pair
       </router-link>
 
       <router-link
         to="/identities/create"
-        class="text-blue-500 underline float-right mr-2"
+        class="text-blue-500 underline float-right ml-2"
       >
         Create Identity
       </router-link>
@@ -61,6 +68,7 @@ import PairCard from '@/components/PairCard'
 import IdentityCard from '@/components/IdentityCard'
 import { Pair, Identity } from '@/class'
 import { reactive } from 'vue'
+import IconExport from '@/components/IconExport'
 
 const database = useDatabaseStore()
 

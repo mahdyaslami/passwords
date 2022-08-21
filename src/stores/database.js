@@ -1,5 +1,6 @@
 import { reactive } from 'vue'
 import { Pair, Identity } from '@/class'
+import { exportObjectAsJson } from '@/helpers'
 
 const database = reactive({
   rows: [
@@ -34,6 +35,18 @@ const database = reactive({
     }
 
     return this.rows
+  },
+
+  export() {
+    exportObjectAsJson(this.rows, this._makeFilename())
+  },
+
+  _makeFilename() {
+    const date = new Date().toLocaleDateString('fa-IR-u-nu-latn')
+      .replaceAll('/', '-')
+      .replaceAll()
+
+    return `passwords-${date}`
   },
 })
 
