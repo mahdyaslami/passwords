@@ -73,10 +73,6 @@ export class Identity {
       if (this.username.toLowerCase().includes(target)) {
         score += 2
       }
-      // TODO: password should not appear in search
-      if (this.password.toLowerCase().includes(target)) {
-        score += 1
-      }
     })
 
     this.score = score
