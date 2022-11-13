@@ -1,8 +1,10 @@
 import { reactive } from 'vue'
 import { Factory } from '@/class'
 import { exportObjectAsJson } from '@/helpers'
+import { file } from '@/storage'
 
 const database = reactive({
+  storage: file,
   rows: [],
 
   push(obj) {
@@ -46,14 +48,17 @@ const database = reactive({
     return `passwords-${date}`
   },
 
+  fetch() {
+    this.storage.fetch()
+      .then((json) => this.import(json))
+  },
+
   import(arr) {
     this.rows = arr.map((el) => Factory.map(el))
   },
 })
 
-fetch('/database.json')
-  .then((response) => response.json())
-  .then((json) => database.import(json))
+database.fetch()
 
 export function useDatabaseStore() {
   return database
