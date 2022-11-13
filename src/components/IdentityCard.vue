@@ -13,12 +13,6 @@
           :to="`/identities/${item.id}/edit`"
           class="text-sm text-blue-600 underline float-right"
         >Edit</router-link>
-        <p class="text-sm font-medium text-gray-900">
-          Title
-        </p>
-        <p class="text-sm text-gray-500 truncate mb-2">
-          {{ item.title }}
-        </p>
 
         <p class="text-sm font-medium text-gray-900">
           Host

@@ -29,7 +29,7 @@ const database = useDatabaseStore()
 function save(item) {
   const tags = item.tags.map((tag) => tag.trim())
   database.push(
-    Identity.make(item.title, item.host, item.username, item.password, tags),
+    Identity.make(item.host, item.username, item.password, tags),
   )
 
   router.push('/')

@@ -39,10 +39,9 @@ export class Pair {
 }
 
 export class Identity {
-  constructor(title, host, username, password, tags = []) {
+  constructor(host, username, password, tags = []) {
     this.id = id()
     this._type = 'IDENTITY'
-    this.title = title
     this.host = host
     this.username = username
     this.password = password
@@ -55,8 +54,8 @@ export class Identity {
     }
   }
 
-  static make(title, host, username, password, tags = []) {
-    return new this(title, host, username, password, tags)
+  static make(host, username, password, tags = []) {
+    return new this(host, username, password, tags)
   }
 
   prepareScore(predicates) {
@@ -67,10 +66,6 @@ export class Identity {
         score += (tag.includes(target) ? 8 : 0)
       })
 
-      if (this.title.toLowerCase().includes(target)) {
-        score += 4
-      }
-
       if (this.host.toLowerCase().includes(target)) {
         score += 2
       }
@@ -78,7 +73,7 @@ export class Identity {
       if (this.username.toLowerCase().includes(target)) {
         score += 2
       }
-
+      // TODO: password should not appear in search
       if (this.password.toLowerCase().includes(target)) {
         score += 1
       }
@@ -100,7 +95,7 @@ export class Factory {
   }
 
   static _IDENTITY(item) {
-    return Identity.make(item.title, item.host, item.username, item.password, item.tags)
+    return Identity.make(item.host, item.username, item.password, item.tags)
   }
 }
 

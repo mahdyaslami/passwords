@@ -1,15 +1,5 @@
 <template>
   <form @submit.prevent="$emit('save', state)">
-    <base-label for="title">
-      Title
-    </base-label>
-    <base-input
-      id="title"
-      v-model="state.title"
-      class="mb-4"
-      type="text"
-    />
-
     <base-label for="host">
       Host
     </base-label>
@@ -68,7 +58,6 @@ const props = defineProps({
   item: {
     type: Object,
     default: () => ({
-      title: '',
       host: '',
       username: '',
       password: '',
@@ -78,7 +67,6 @@ const props = defineProps({
 })
 
 const state = reactive({
-  title: props.item.title,
   host: props.item.host,
   username: props.item.username,
   password: props.item.password,
