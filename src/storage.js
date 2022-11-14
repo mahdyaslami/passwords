@@ -27,3 +27,25 @@ export const local = {
     )
   },
 }
+
+export const php = {
+  routes: {
+    fetch: `${import.meta.env.VITE_PHP_HOST}/server/fetch.php`,
+    store: `${import.meta.env.VITE_PHP_HOST}/server/store.php`,
+  },
+
+  fetch() {
+    return fetch(this.routes.fetch)
+      .then((response) => response.json())
+  },
+
+  store(arr) {
+    const form = new FormData()
+    form.append('database', JSON.stringify(arr))
+
+    return fetch(this.routes.store, {
+      method: 'POST',
+      body: form,
+    })
+  },
+}
