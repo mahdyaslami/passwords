@@ -27,3 +27,4 @@ dist-ssr
 public/database.json
 public/server/database.json
 .env
+publish.sh
