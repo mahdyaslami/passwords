@@ -4,7 +4,7 @@ export const file = {
       .then((response) => response.json())
   },
 
-  store(data) {
+  store(arr) {
     // Save in a file is impossible.
   },
 }
