@@ -9,6 +9,7 @@ const database = reactive({
 
   push(obj) {
     this.rows.push(obj)
+    this.store()
   },
 
   replace(id, obj) {
@@ -17,6 +18,7 @@ const database = reactive({
     )
 
     this.rows[index] = obj
+    this.store()
   },
 
   find(id) {
@@ -46,6 +48,10 @@ const database = reactive({
       .replaceAll()
 
     return `passwords-${date}`
+  },
+
+  store() {
+    this.storage.store(this.rows)
   },
 
   fetch() {
