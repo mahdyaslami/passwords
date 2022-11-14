@@ -21,5 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
 
+header('Content-Type: application/json');
 
-file_put_contents(__DIR__ . '/database.json', $_POST['database']);
+if (file_put_contents(__DIR__ . '/database.json', $_POST['database'])) {
+    echo json_encode([
+        'status' => 'success'
+    ]);
+} else {
+    echo json_encode([
+        'status' => 'failed',
+        'error' => error_get_last()
+    ]);
+}
