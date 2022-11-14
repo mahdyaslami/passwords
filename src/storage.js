@@ -8,3 +8,22 @@ export const file = {
     // Save in a file is impossible.
   },
 }
+
+export const local = {
+  fetch() {
+    let item = localStorage.getItem('database')
+
+    if (!item) {
+      localStorage.setItem('database', '[]')
+      item = '[]'
+    }
+
+    return Promise.resolve(JSON.parse(item))
+  },
+
+  store(arr) {
+    return Promise.resolve(
+      localStorage.setItem('database', JSON.stringify(arr)),
+    )
+  },
+}

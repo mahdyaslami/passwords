@@ -1,10 +1,10 @@
 import { reactive } from 'vue'
 import { Factory } from '@/class'
 import { exportObjectAsJson } from '@/helpers'
-import { file } from '@/storage'
+import { file, local } from '@/storage'
 
 const database = reactive({
-  storage: file,
+  storage: local,
   rows: [],
 
   push(obj) {
