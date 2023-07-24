@@ -49,3 +49,9 @@ export const php = {
     })
   },
 }
+
+export function storage() {
+  const driver = import.meta.env.VITE_STORAGE
+
+  return { local, php, file }[driver]
+}
