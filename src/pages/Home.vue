@@ -22,6 +22,13 @@
         Create Identity
       </router-link>
 
+      <router-link
+        to="/hosts/create"
+        class="text-blue-500 underline float-right ml-2"
+      >
+        Create Host
+      </router-link>
+
       <h1 class="text-3xl mb-8">
         Search
       </h1>
@@ -59,6 +66,12 @@
           :item="row"
         />
       </template>
+      <template v-else-if="(row instanceof Host)">
+        <host-card
+          class="mb-2"
+          :item="row"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -69,7 +82,8 @@ import BaseInput from '@/components/Input'
 import BaseLabel from '@/components/Label'
 import PairCard from '@/components/PairCard'
 import IdentityCard from '@/components/IdentityCard'
-import { Pair, Identity } from '@/class'
+import HostCard from '@/components/HostCard'
+import { Pair, Identity, Host } from '@/class'
 import { reactive } from 'vue'
 import IconExport from '@/components/IconExport'
 

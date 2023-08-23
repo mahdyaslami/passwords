@@ -80,6 +80,41 @@ export class Identity {
   }
 }
 
+export class Host {
+  constructor(value, tags = []) {
+    this.id = id()
+    this._type = 'HOST'
+    this.value = value
+
+    if (Array.isArray(tags)) {
+      this.tags = tags
+    } else {
+      throw new Error('tags argument must be array of string.')
+    }
+  }
+
+  static make(value, tags = []) {
+    return new this(value, tags)
+  }
+
+  prepareScore(predicates) {
+    let score = 0
+
+    predicates.forEach((target) => {
+      this.tags.forEach((tag) => {
+        score += (tag.includes(target) ? 8 : 0)
+      })
+
+      if (this.value.toLowerCase().includes(target)) {
+        score += 4
+      }
+    })
+
+    this.score = score
+    return score
+  }
+}
+
 export class Factory {
   static map(item) {
     // eslint-disable-next-line no-underscore-dangle
@@ -92,6 +127,10 @@ export class Factory {
 
   static _IDENTITY(item) {
     return Identity.make(item.host, item.username, item.password, item.tags)
+  }
+
+  static _HOST(item) {
+    return Host.make(item.value, item.tags)
   }
 }
 
