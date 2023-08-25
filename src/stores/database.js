@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { Factory } from '@/class'
+import { Factory, Host } from '@/class'
 import { exportObjectAsJson } from '@/helpers'
 import { storage } from '@/storage'
 
@@ -19,6 +19,10 @@ const database = reactive({
 
     this.rows[index] = obj
     this.store()
+  },
+
+  hosts() {
+    return this.rows.filter((r) => r instanceof Host)
   },
 
   find(id) {
