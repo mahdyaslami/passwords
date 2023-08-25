@@ -39,56 +39,25 @@ const database = reactive({
     }
 
     return this.rows.filter((r) => {
-      if (r._type === 'HOST') {
-        let score = 0
+      // Search through tags
+      if (predicates.some((p) => r.tags.some((t) => t.includes(p)))) {
+        return true
+      }
 
-        predicates.forEach((target) => {
-          r.tags.forEach((tag) => {
-            score += (tag.includes(target) ? 8 : 0)
-          })
+      // Get the keys that should participate in search
+      const keys = Object.keys(r).filter(
+        (k) => !['id', '_type', 'tags', 'hostId', 'password'].includes(k),
+      )
 
-          if (r.value.toLowerCase().includes(target)) {
-            score += 4
-          }
-        })
-
-        return score
-      } if (r._type == 'IDENTITY') {
-        let score = 0
-
-        predicates.forEach((target) => {
-          r.tags.forEach((tag) => {
-            score += (tag.includes(target) ? 8 : 0)
-          })
-
-          if (r.username.toLowerCase().includes(target)) {
-            score += 2
-          }
-        })
-
-        return score
-      } if (r._type) {
-        let score = 0
-
-        predicates.forEach((target) => {
-          r.tags.forEach((tag) => {
-            score += (tag.includes(target) ? 8 : 0)
-          })
-
-          if (r.value.toLowerCase().includes(target)) {
-            score += 4
-          }
-
-          if (r.key.toLowerCase().includes(target)) {
-            score += 2
-          }
-        })
-
-        return score
+      // Check value of keys
+      if (predicates.some(
+        (p) => keys.some((k) => r[k]?.toLowerCase().includes(p)),
+      )) {
+        return true
       }
 
       return false
-    }).sort((a, b) => a.score - b.score)
+    })
   },
 
   export() {
