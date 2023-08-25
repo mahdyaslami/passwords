@@ -4,12 +4,7 @@ export class Pair {
     this._type = 'PAIR'
     this.key = key
     this.value = value
-
-    if (Array.isArray(tags)) {
-      this.tags = tags
-    } else {
-      throw new Error('tags argument must be array of string.')
-    }
+    this.tags = justArray(tags)
   }
 
   static make(key, value, tags = []) {
@@ -45,13 +40,7 @@ export class Identity {
     this.hostId = hostId
     this.username = username
     this.password = password
-    this.tags = []
-
-    if (Array.isArray(tags)) {
-      this.tags = tags
-    } else {
-      throw new Error('tags argument must be array of string.')
-    }
+    this.tags = justArray(tags)
   }
 
   static make(hostId, username, password, tags = []) {
@@ -81,12 +70,7 @@ export class Host {
     this.id = id()
     this._type = 'HOST'
     this.value = value
-
-    if (Array.isArray(tags)) {
-      this.tags = tags
-    } else {
-      throw new Error('tags argument must be array of string.')
-    }
+    this.tags = justArray(tags)
   }
 
   static make(value, tags = []) {
@@ -132,4 +116,12 @@ export class Factory {
 
 function id() {
   return Math.floor(Math.random() * 1000000)
+}
+
+function justArray(target) {
+  if (Array.isArray(target)) {
+    return target
+  }
+
+  throw new Error('target argument must be array of string.')
 }
