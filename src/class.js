@@ -39,10 +39,10 @@ export class Pair {
 }
 
 export class Identity {
-  constructor(host, username, password, tags = []) {
+  constructor(hostId, username, password, tags = []) {
     this.id = id()
     this._type = 'IDENTITY'
-    this.host = host
+    this.hostId = hostId
     this.username = username
     this.password = password
     this.tags = []
@@ -54,8 +54,8 @@ export class Identity {
     }
   }
 
-  static make(host, username, password, tags = []) {
-    return new this(host, username, password, tags)
+  static make(hostId, username, password, tags = []) {
+    return new this(hostId, username, password, tags)
   }
 
   prepareScore(predicates) {
@@ -65,10 +65,6 @@ export class Identity {
       this.tags.forEach((tag) => {
         score += (tag.includes(target) ? 8 : 0)
       })
-
-      if (this.host.toLowerCase().includes(target)) {
-        score += 2
-      }
 
       if (this.username.toLowerCase().includes(target)) {
         score += 2

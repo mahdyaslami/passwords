@@ -18,7 +18,7 @@
           Host
         </p>
         <p class="text-sm text-gray-500 truncate mb-2">
-          {{ item.host }}
+          {{ database.find(item.hostId)?.value }}
         </p>
 
         <p class="text-sm font-medium text-gray-900">
@@ -49,6 +49,9 @@
 
 <script setup>
 import Tag from '@/components/Tag'
+import { useDatabaseStore } from '@/stores/database'
+
+const database = useDatabaseStore()
 
 defineProps({
   item: {
