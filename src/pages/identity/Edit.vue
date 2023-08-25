@@ -32,7 +32,7 @@ const database = useDatabaseStore()
 const identity = database.find(route.params.id) ?? router.push('/')
 
 function save(item) {
-  identity.host = item.host
+  identity.hostId = item.hostId
   identity.username = item.username
   identity.password = item.password
   identity.tags = item.tags.map((tag) => tag.trim())

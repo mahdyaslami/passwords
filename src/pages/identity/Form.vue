@@ -3,12 +3,19 @@
     <base-label for="host">
       Host
     </base-label>
-    <base-input
+    <base-select
       id="host"
-      v-model="state.host"
+      v-model="state.hostId"
       class="mb-4"
-      type="text"
-    />
+    >
+      <option
+        v-for="host in database.hosts()"
+        :key="host.id"
+        :value="host.id"
+      >
+        {{ host.value }}
+      </option>
+    </base-select>
 
     <base-label for="username">
       Username
@@ -49,16 +56,18 @@
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import BaseInput from '@/components/Input'
 import BaseLabel from '@/components/Label'
 import BaseButton from '@/components/Button'
+import BaseSelect from '@/components/Select'
+import { useDatabaseStore } from '@/stores/database'
 
 const props = defineProps({
   item: {
     type: Object,
     default: () => ({
-      host: '',
+      hostId: null,
       username: '',
       password: '',
       tags: [],
@@ -66,8 +75,10 @@ const props = defineProps({
   },
 })
 
+const database = useDatabaseStore()
+
 const state = reactive({
-  host: props.item.host,
+  hostId: props.item.hostId,
   username: props.item.username,
   password: props.item.password,
   tags: props.item.tags,
