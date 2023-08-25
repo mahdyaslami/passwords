@@ -34,12 +34,61 @@ const database = reactive({
       .map((p) => p.trim().toLowerCase())
       .filter((p) => p.length > 0)
 
-    if (predicates.length > 0) {
-      return this.rows.filter((r) => r.prepareScore(predicates) > 0)
-        .sort((a, b) => a.score - b.score)
+    if (predicates.length == 0) {
+      return this.rows
     }
 
-    return this.rows
+    return this.rows.filter((r) => {
+      if (r._type === 'HOST') {
+        let score = 0
+
+        predicates.forEach((target) => {
+          r.tags.forEach((tag) => {
+            score += (tag.includes(target) ? 8 : 0)
+          })
+
+          if (r.value.toLowerCase().includes(target)) {
+            score += 4
+          }
+        })
+
+        return score
+      } if (r._type == 'IDENTITY') {
+        let score = 0
+
+        predicates.forEach((target) => {
+          r.tags.forEach((tag) => {
+            score += (tag.includes(target) ? 8 : 0)
+          })
+
+          if (r.username.toLowerCase().includes(target)) {
+            score += 2
+          }
+        })
+
+        return score
+      } if (r._type) {
+        let score = 0
+
+        predicates.forEach((target) => {
+          r.tags.forEach((tag) => {
+            score += (tag.includes(target) ? 8 : 0)
+          })
+
+          if (r.value.toLowerCase().includes(target)) {
+            score += 4
+          }
+
+          if (r.key.toLowerCase().includes(target)) {
+            score += 2
+          }
+        })
+
+        return score
+      }
+
+      return false
+    }).sort((a, b) => a.score - b.score)
   },
 
   export() {
