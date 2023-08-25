@@ -34,12 +34,30 @@ const database = reactive({
       .map((p) => p.trim().toLowerCase())
       .filter((p) => p.length > 0)
 
-    if (predicates.length > 0) {
-      return this.rows.filter((r) => r.prepareScore(predicates) > 0)
-        .sort((a, b) => a.score - b.score)
+    if (predicates.length == 0) {
+      return this.rows
     }
 
-    return this.rows
+    return this.rows.filter((r) => {
+      // Search through tags
+      if (predicates.some((p) => r.tags.some((t) => t.includes(p)))) {
+        return true
+      }
+
+      // Get the keys that should participate in search
+      const keys = Object.keys(r).filter(
+        (k) => !['id', '_type', 'tags', 'hostId', 'password'].includes(k),
+      )
+
+      // Check value of keys
+      if (predicates.some(
+        (p) => keys.some((k) => r[k]?.toLowerCase().includes(p)),
+      )) {
+        return true
+      }
+
+      return false
+    })
   },
 
   export() {

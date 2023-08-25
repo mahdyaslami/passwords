@@ -10,27 +10,6 @@ export class Pair {
   static make(key, value, tags = []) {
     return new this(key, value, tags)
   }
-
-  prepareScore(predicates) {
-    let score = 0
-
-    predicates.forEach((target) => {
-      this.tags.forEach((tag) => {
-        score += (tag.includes(target) ? 8 : 0)
-      })
-
-      if (this.value.toLowerCase().includes(target)) {
-        score += 4
-      }
-
-      if (this.key.toLowerCase().includes(target)) {
-        score += 2
-      }
-    })
-
-    this.score = score
-    return score
-  }
 }
 
 export class Identity {
@@ -46,23 +25,6 @@ export class Identity {
   static make(hostId, username, password, tags = []) {
     return new this(hostId, username, password, tags)
   }
-
-  prepareScore(predicates) {
-    let score = 0
-
-    predicates.forEach((target) => {
-      this.tags.forEach((tag) => {
-        score += (tag.includes(target) ? 8 : 0)
-      })
-
-      if (this.username.toLowerCase().includes(target)) {
-        score += 2
-      }
-    })
-
-    this.score = score
-    return score
-  }
 }
 
 export class Host {
@@ -75,23 +37,6 @@ export class Host {
 
   static make(value, tags = []) {
     return new this(value, tags)
-  }
-
-  prepareScore(predicates) {
-    let score = 0
-
-    predicates.forEach((target) => {
-      this.tags.forEach((tag) => {
-        score += (tag.includes(target) ? 8 : 0)
-      })
-
-      if (this.value.toLowerCase().includes(target)) {
-        score += 4
-      }
-    })
-
-    this.score = score
-    return score
   }
 }
 
