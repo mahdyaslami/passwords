@@ -5,5 +5,5 @@
 | Word      | Definition                     |
 | --------- | ------------------------------ |
 | Identity  | Username and Password together |
-| predicate |                                |
+| predicate | User text for search           |
 |           |                                |
