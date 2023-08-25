@@ -54,19 +54,19 @@
       v-for="row in database.search(state.predicate)"
       :key="row.id"
     >
-      <template v-if="(row instanceof Pair)">
+      <template v-if="(row._type === 'PAIR')">
         <pair-card
           :item="row"
           class="mb-2"
         />
       </template>
-      <template v-else-if="(row instanceof Identity)">
+      <template v-else-if="(row._type === 'IDENTITY')">
         <identity-card
           class="mb-2"
           :item="row"
         />
       </template>
-      <template v-else-if="(row instanceof Host)">
+      <template v-else-if="(row._type === 'HOST')">
         <host-card
           class="mb-2"
           :item="row"
@@ -83,7 +83,6 @@ import BaseLabel from '@/components/Label'
 import PairCard from '@/components/PairCard'
 import IdentityCard from '@/components/IdentityCard'
 import HostCard from '@/components/HostCard'
-import { Pair, Identity, Host } from '@/class'
 import { reactive } from 'vue'
 import IconExport from '@/components/IconExport'
 
