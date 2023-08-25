@@ -54,7 +54,10 @@
         />
       </template>
       <template v-else-if="(row instanceof Identity)">
-        <identity-card :item="row" />
+        <identity-card
+          class="mb-2"
+          :item="row"
+        />
       </template>
     </div>
   </div>
