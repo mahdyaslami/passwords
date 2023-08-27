@@ -22,7 +22,7 @@ const database = reactive({
   },
 
   hosts() {
-    return this.rows.filter((r) => r instanceof Host)
+    return this.rows.filter((r) => r._type === 'HOST')
   },
 
   find(id) {
