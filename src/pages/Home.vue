@@ -54,19 +54,19 @@
       v-for="row in database.search(state.predicate)"
       :key="row.id"
     >
-      <template v-if="(row._type === 'PAIR')">
+      <template v-if="(row.type === 'PAIR')">
         <pair-card
           :item="row"
           class="mb-2"
         />
       </template>
-      <template v-else-if="(row._type === 'IDENTITY')">
+      <template v-else-if="(row.type === 'IDENTITY')">
         <identity-card
           class="mb-2"
           :item="row"
         />
       </template>
-      <template v-else-if="(row._type === 'HOST')">
+      <template v-else-if="(row.type === 'HOST')">
         <host-card
           class="mb-2"
           :item="row"

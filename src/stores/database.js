@@ -10,7 +10,7 @@ const database = reactive({
     const item = {
       ...attributes,
       id: nextId(),
-      _type: type,
+      type,
       tags: justArray(tags),
     }
 
@@ -34,7 +34,7 @@ const database = reactive({
   },
 
   hosts() {
-    return this.rows.filter((r) => r._type === 'HOST')
+    return this.rows.filter((r) => r.type === 'HOST')
   },
 
   find(id) {
@@ -58,7 +58,7 @@ const database = reactive({
 
       // Get the keys that should participate in search
       const keys = Object.keys(r).filter(
-        (k) => !['id', '_type', 'tags', 'hostId', 'password'].includes(k),
+        (k) => !['id', 'type', 'tags', 'hostId', 'password'].includes(k),
       )
 
       // Check value of keys
