@@ -40,25 +40,6 @@ export class Host {
   }
 }
 
-export class Factory {
-  static map(item) {
-    // eslint-disable-next-line no-underscore-dangle
-    return Factory[`_${item._type}`](item)
-  }
-
-  static _PAIR(item) {
-    return Pair.make(item.key, item.value, item.tags)
-  }
-
-  static _IDENTITY(item) {
-    return Identity.make(item.host, item.username, item.password, item.tags)
-  }
-
-  static _HOST(item) {
-    return Host.make(item.value, item.tags)
-  }
-}
-
 function id() {
   return Math.floor(Math.random() * 1000000)
 }

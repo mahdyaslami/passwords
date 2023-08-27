@@ -1,5 +1,4 @@
 import { reactive } from 'vue'
-import { Factory, Host } from '@/class'
 import { exportObjectAsJson } from '@/helpers'
 import { storage } from '@/storage'
 
@@ -82,7 +81,7 @@ const database = reactive({
   },
 
   import(arr) {
-    this.rows = arr.map((el) => Factory.map(el))
+    this.rows = arr
   },
 })
 
