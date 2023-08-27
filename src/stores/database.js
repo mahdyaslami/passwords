@@ -1,10 +1,23 @@
 import { reactive } from 'vue'
-import { exportObjectAsJson } from '@/helpers'
+import { exportObjectAsJson, nextId, justArray } from '@/helpers'
 import { storage } from '@/storage'
 
 const database = reactive({
   storage: storage(),
   rows: [],
+
+  create(type, attributes, tags) {
+    const item = {
+      ...attributes,
+      id: nextId(),
+      _type: type,
+      tags: justArray(tags),
+    }
+
+    this.push(item)
+
+    return item
+  },
 
   push(obj) {
     this.rows.push(obj)

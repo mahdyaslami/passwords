@@ -20,7 +20,6 @@
 <script setup>
 import { useDatabaseStore } from '@/stores/database'
 import { useRouter } from 'vue-router'
-import { Host } from '@/class'
 import HostForm from './Form'
 
 const router = useRouter()
@@ -28,9 +27,7 @@ const database = useDatabaseStore()
 
 function save(item) {
   const tags = item.tags.map((tag) => tag.trim())
-  database.push(
-    Host.make(item.value, tags),
-  )
+  database.create('HOST', { value: item.value }, tags)
 
   router.push('/')
 }
