@@ -20,7 +20,6 @@
 <script setup>
 import { useDatabaseStore } from '@/stores/database'
 import { useRouter } from 'vue-router'
-import { Pair } from '@/class'
 import PairForm from './Form'
 
 const router = useRouter()
@@ -28,9 +27,7 @@ const database = useDatabaseStore()
 
 function save(item) {
   const tags = item.tags.map((tag) => tag.trim())
-  database.push(
-    Pair.make(item.key, item.value, tags),
-  )
+  database.create('PAIR', { key: item.key, value: item.value }, tags)
 
   router.push('/')
 }

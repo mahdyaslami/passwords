@@ -20,7 +20,6 @@
 <script setup>
 import { useDatabaseStore } from '@/stores/database'
 import { useRouter } from 'vue-router'
-import { Identity } from '@/class'
 import IdentityForm from './Form'
 
 const router = useRouter()
@@ -28,9 +27,7 @@ const database = useDatabaseStore()
 
 function save(item) {
   const tags = item.tags.map((tag) => tag.trim())
-  database.push(
-    Identity.make(item.hostId, item.username, item.password, tags),
-  )
+  database.create('IDENTITY', { hostId: item.hostId, username: item.username, password: item.password }, tags)
 
   router.push('/')
 }

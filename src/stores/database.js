@@ -1,11 +1,23 @@
 import { reactive } from 'vue'
-import { Factory, Host } from '@/class'
-import { exportObjectAsJson } from '@/helpers'
+import { exportObjectAsJson, nextId, justArray } from '@/helpers'
 import { storage } from '@/storage'
 
 const database = reactive({
   storage: storage(),
   rows: [],
+
+  create(type, attributes, tags) {
+    const item = {
+      ...attributes,
+      id: nextId(),
+      type,
+      tags: justArray(tags),
+    }
+
+    this.push(item)
+
+    return item
+  },
 
   push(obj) {
     this.rows.push(obj)
@@ -22,7 +34,7 @@ const database = reactive({
   },
 
   hosts() {
-    return this.rows.filter((r) => r instanceof Host)
+    return this.rows.filter((r) => r.type === 'HOST')
   },
 
   find(id) {
@@ -46,7 +58,7 @@ const database = reactive({
 
       // Get the keys that should participate in search
       const keys = Object.keys(r).filter(
-        (k) => !['id', '_type', 'tags', 'hostId', 'password'].includes(k),
+        (k) => !['id', 'type', 'tags', 'hostId', 'password'].includes(k),
       )
 
       // Check value of keys
@@ -82,7 +94,7 @@ const database = reactive({
   },
 
   import(arr) {
-    this.rows = arr.map((el) => Factory.map(el))
+    this.rows = arr
   },
 })
 

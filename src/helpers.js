@@ -7,3 +7,15 @@ export function exportObjectAsJson(obj, filename) {
   downloadAnchorNode.click()
   downloadAnchorNode.remove()
 }
+
+export function nextId() {
+  return Math.floor(Math.random() * 1000000)
+}
+
+export function justArray(target) {
+  if (Array.isArray(target)) {
+    return target
+  }
+
+  throw new Error('target argument must be array of string.')
+}
