@@ -18,6 +18,10 @@
   "plugins": [
     "vue"
   ],
+  "globals": {
+    "gapi": "readonly",
+    "google": "readonly"
+  },
   "settings": {
     "import/resolver": {
       "alias": {
