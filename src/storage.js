@@ -1,3 +1,5 @@
+import { google } from './drive'
+
 export const http = {
   fetch() {
     return fetch('/database.json')
@@ -61,103 +63,18 @@ export const drive = {
 
     async function prepare() {
       const file = {
-        id: (await findOrCreate()).id,
+        id: (await google.drive.findOrCreate()).id,
         body: null,
       }
 
-      const { result } = await gapi.client.drive.files.get({ fileId: file.id, alt: 'media' })
-      file.body = result
+      file.body = google.drive.get(file.id)
 
       return file
-    }
-
-    async function findOrCreate() {
-      const files = await find('passwords.json')
-
-      if (!files || files.length == 0) {
-        const { result } = await create()
-        return result
-      }
-
-      return files[0]
-    }
-
-    async function find(name) {
-      const response = await gapi.client.drive.files.list({
-        pageSize: 10,
-        fields: 'files(id, name)',
-        q: `name = '${name}' and trashed = false`,
-      })
-
-      const { files } = response.result
-      return files
-    }
-
-    async function create() {
-      const boundary = '-------314159265358979323846'
-      const delimiter = `\r\n--${boundary}\r\n`
-      const closeDelim = `\r\n--${boundary}--`
-
-      const contentType = 'application/json'
-
-      const metadata = {
-        name: 'passwords.json',
-        mimeType: contentType,
-      }
-
-      const multipartRequestBody = `${delimiter
-      }Content-Type: application/json\r\n\r\n${
-        JSON.stringify(metadata)
-      }${delimiter
-      }Content-Type: ${contentType}\r\n\r\n${
-        JSON.stringify([])
-      }${closeDelim}`
-
-      return gapi.client.request({
-        path: '/upload/drive/v3/files',
-        method: 'POST',
-        params: { uploadType: 'multipart' },
-        headers: {
-          'Content-Type': `multipart/related; boundary="${boundary}"`,
-        },
-        body: multipartRequestBody,
-      })
     }
   },
 
   store(arr) {
-    return update(this.fileId, arr)
-
-    async function update(id, json) {
-      const boundary = '-------314159265358979323846'
-      const delimiter = `\r\n--${boundary}\r\n`
-      const closeDelim = `\r\n--${boundary}--`
-
-      const contentType = 'application/json'
-
-      const metadata = {
-        name: 'passwords.json',
-        mimeType: contentType,
-      }
-
-      const multipartRequestBody = `${delimiter
-      }Content-Type: application/json\r\n\r\n${
-        JSON.stringify(metadata)
-      }${delimiter
-      }Content-Type: ${contentType}\r\n\r\n${
-        JSON.stringify(json)
-      }${closeDelim}`
-
-      return gapi.client.request({
-        path: `/upload/drive/v3/files/${id}`,
-        method: 'PATCH',
-        params: { uploadType: 'multipart' },
-        headers: {
-          'Content-Type': `multipart/related; boundary="${boundary}"`,
-        },
-        body: multipartRequestBody,
-      })
-    }
+    return google.drive.update(this.fileId, arr)
   },
 }
 
