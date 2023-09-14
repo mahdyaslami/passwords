@@ -53,11 +53,15 @@ export const php = {
 }
 
 export const drive = {
-  fileId: null,
+  file: null,
 
   fetch() {
+    if (this.file) {
+      return Promise.resolve(this.file.body)
+    }
+
     return prepare().then((result) => {
-      this.fileId = result.id
+      this.file = result
       return result.body
     })
 
@@ -74,7 +78,8 @@ export const drive = {
   },
 
   store(arr) {
-    return google.drive.update(this.fileId, arr)
+    this.file.body = arr
+    return google.drive.update(this.file.id, arr)
   },
 }
 
