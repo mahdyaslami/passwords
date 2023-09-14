@@ -1,4 +1,6 @@
-export const file = {
+import { google } from './drive'
+
+export const http = {
   fetch() {
     return fetch('/database.json')
       .then((response) => response.json())
@@ -50,8 +52,41 @@ export const php = {
   },
 }
 
+export const drive = {
+  file: null,
+
+  fetch() {
+    if (this.file) {
+      return Promise.resolve(this.file.body)
+    }
+
+    return prepare().then((result) => {
+      this.file = result
+      return result.body
+    })
+
+    async function prepare() {
+      const file = {
+        id: (await google.drive.findOrCreate()).id,
+        body: null,
+      }
+
+      file.body = google.drive.get(file.id)
+
+      return file
+    }
+  },
+
+  store(arr) {
+    this.file.body = arr
+    return google.drive.update(this.file.id, arr)
+  },
+}
+
 export function storage() {
   const driver = import.meta.env.VITE_STORAGE
 
-  return { local, php, file }[driver]
+  return {
+    local, php, http, drive,
+  }[driver]
 }
