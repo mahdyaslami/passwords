@@ -9,7 +9,7 @@ const auth = useAuthStore()
 
 const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
 
-const SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly'
+const SCOPES = 'https://www.googleapis.com/auth/drive.file'
 
 let tokenClient = null
 const data = reactive({

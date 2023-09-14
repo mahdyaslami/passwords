@@ -98,8 +98,7 @@ const database = reactive({
   },
 })
 
-database.fetch()
-
 export function useDatabaseStore() {
+  database.fetch()
   return database
 }
