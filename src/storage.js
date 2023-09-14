@@ -126,7 +126,38 @@ export const drive = {
   },
 
   store(arr) {
+    return update(this.fileId, arr)
 
+    async function update(id, json) {
+      const boundary = '-------314159265358979323846'
+      const delimiter = `\r\n--${boundary}\r\n`
+      const closeDelim = `\r\n--${boundary}--`
+
+      const contentType = 'application/json'
+
+      const metadata = {
+        name: 'passwords.json',
+        mimeType: contentType,
+      }
+
+      const multipartRequestBody = `${delimiter
+      }Content-Type: application/json\r\n\r\n${
+        JSON.stringify(metadata)
+      }${delimiter
+      }Content-Type: ${contentType}\r\n\r\n${
+        JSON.stringify(json)
+      }${closeDelim}`
+
+      return gapi.client.request({
+        path: `/upload/drive/v3/files/${id}`,
+        method: 'PATCH',
+        params: { uploadType: 'multipart' },
+        headers: {
+          'Content-Type': `multipart/related; boundary="${boundary}"`,
+        },
+        body: multipartRequestBody,
+      })
+    }
   },
 }
 
