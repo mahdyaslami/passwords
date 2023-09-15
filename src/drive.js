@@ -1,9 +1,9 @@
 const drive = {
-  async findOrCreate() {
-    const files = await this.find('passwords.json')
+  async findOrCreate(name) {
+    const files = await this.find(name)
 
     if (!files || files.length == 0) {
-      const { result } = await this.create()
+      const { result } = await this.create(name)
       return result
     }
 
@@ -21,15 +21,15 @@ const drive = {
     return files
   },
 
-  async create() {
-    return this.multipartRequest('POST', '/upload/drive/v3/files', [])
+  async create(name) {
+    return this.multipartRequest('POST', '/upload/drive/v3/files', name, [])
   },
 
-  async update(id, json) {
-    return this.multipartRequest('PATCH', `/upload/drive/v3/files/${id}`, json)
+  async update(id, name, json) {
+    return this.multipartRequest('PATCH', `/upload/drive/v3/files/${id}`, name, json)
   },
 
-  multipartRequest(method, path, json) {
+  multipartRequest(method, path, name, json) {
     const boundary = '-------314159265358979323846'
     const delimiter = `\r\n--${boundary}\r\n`
     const closeDelim = `\r\n--${boundary}--`
@@ -37,7 +37,7 @@ const drive = {
     const contentType = 'application/json'
 
     const metadata = {
-      name: 'passwords.json',
+      name,
       mimeType: contentType,
     }
 

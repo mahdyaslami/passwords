@@ -54,20 +54,21 @@ export const php = {
 
 export const drive = {
   file: null,
+  name: import.meta.env.VITE_DRIVE_FILENAME ?? 'passwords-dev.json',
 
   fetch() {
     if (this.file) {
       return Promise.resolve(this.file.body)
     }
 
-    return prepare().then((result) => {
+    return prepare(this.name).then((result) => {
       this.file = result
       return result.body
     })
 
-    async function prepare() {
+    async function prepare(name) {
       const file = {
-        id: (await google.drive.findOrCreate()).id,
+        id: (await google.drive.findOrCreate(name)).id,
         body: null,
       }
 
@@ -79,7 +80,7 @@ export const drive = {
 
   store(arr) {
     this.file.body = arr
-    return google.drive.update(this.file.id, arr)
+    return google.drive.update(this.file.id, this.name, arr)
   },
 }
 
