@@ -8,20 +8,25 @@ import IdentityCreate from '@/pages/identity/Create'
 import IdentityEdit from '@/pages/identity/Edit'
 import HostCreate from '@/pages/host/Create'
 import HostEdit from '@/pages/host/Edit'
+import Privacy from '@/pages/conditions/Privacy'
+import Terms from '@/pages/conditions/Terms'
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', component: Home, meta: { auth: true } },
 
-  { path: '/auth', component: Auth, name: 'Auth' },
+  { path: '/auth', component: Auth },
 
-  { path: '/pairs/create', component: PairCreate },
-  { path: '/pairs/:id/edit', component: PairEdit },
+  { path: '/pairs/create', component: PairCreate, meta: { auth: true } },
+  { path: '/pairs/:id/edit', component: PairEdit, meta: { auth: true } },
 
-  { path: '/identities/create', component: IdentityCreate },
-  { path: '/identities/:id/edit', component: IdentityEdit },
+  { path: '/identities/create', component: IdentityCreate, meta: { auth: true } },
+  { path: '/identities/:id/edit', component: IdentityEdit, meta: { auth: true } },
 
-  { path: '/hosts/create', component: HostCreate },
-  { path: '/hosts/:id/edit', component: HostEdit },
+  { path: '/hosts/create', component: HostCreate, meta: { auth: true } },
+  { path: '/hosts/:id/edit', component: HostEdit, meta: { auth: true } },
+
+  { path: '/terms-of-service', component: Terms },
+  { path: '/privacy-policy', component: Privacy },
 ]
 
 const router = createRouter({
@@ -30,7 +35,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
-  if (!useAuthStore().authenticated && to.name != 'Auth') {
+  if (!useAuthStore().authenticated && to.meta.auth) {
     return '/auth'
   }
 
