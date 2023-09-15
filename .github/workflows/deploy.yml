@@ -1,0 +1,39 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: create env file
+        run: |
+          echo "${{ vars.ENV_FILE }}" > .env
+          echo "${{ secrets.GOOGLE_OAUTH_ENV }}" >> .env
+
+      - name: create nginx config
+        run: |
+          echo "${{ vars.NGINX_CONFIG }}" > liara_nginx.conf
+
+      - name: install
+        run: |
+          npm i -g @liara/cli
+          npm install
+
+      - name: build
+        run: |
+          npm run build
+
+      - name: deploy
+        run: |
+          cd dist
+          liara deploy --platform=static --app="passwords" --api-token="$LIARA_TOKEN" --detach
+
