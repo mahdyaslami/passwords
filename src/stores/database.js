@@ -1,9 +1,9 @@
 import { reactive } from 'vue'
 import { exportObjectAsJson, nextId, justArray } from '@/helpers'
-import { storage } from '@/drivers'
+import { manager } from '@/drivers'
 
 const database = reactive({
-  storage: storage(),
+  storage: manager(),
   rows: [],
 
   create(type, attributes, tags) {

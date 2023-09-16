@@ -1,13 +1,13 @@
 import { google } from './google'
 
-export const http = {
+export const link = {
   fetch() {
     return fetch('/database.json')
       .then((response) => response.json())
   },
 
   store(arr) {
-    // Save in a file is impossible.
+    // Save is impossible.
   },
 }
 
@@ -84,10 +84,10 @@ export const drive = {
   },
 }
 
-export function storage() {
+export function manager() {
   const driver = import.meta.env.VITE_STORAGE
 
   return {
-    local, php, http, drive,
+    local, php, link, drive,
   }[driver]
 }
