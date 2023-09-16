@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 import { exportObjectAsJson, nextId, justArray } from '@/helpers'
-import { storage } from '@/storage'
+import { storage } from '@/drivers'
 
 const database = reactive({
   storage: storage(),
