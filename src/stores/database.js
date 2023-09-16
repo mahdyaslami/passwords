@@ -1,9 +1,10 @@
 import { reactive } from 'vue'
 import { exportObjectAsJson, nextId, justArray } from '@/helpers'
-import { manager } from '@/drivers'
+import { useStorageStore } from './storage'
+
+const storage = useStorageStore()
 
 const database = reactive({
-  storage: manager(),
   rows: [],
 
   create(type, attributes, tags) {
@@ -21,7 +22,7 @@ const database = reactive({
 
   push(obj) {
     this.rows.push(obj)
-    this.store()
+    storage.store(this.rows)
   },
 
   replace(id, obj) {
@@ -30,7 +31,7 @@ const database = reactive({
     )
 
     this.rows[index] = obj
-    this.store()
+    storage.store(this.rows)
   },
 
   hosts() {
@@ -84,21 +85,14 @@ const database = reactive({
     return `passwords-${date}`
   },
 
-  store() {
-    this.storage.store(this.rows)
-  },
-
-  fetch() {
-    this.storage.fetch()
-      .then((json) => this.import(json))
-  },
-
   import(arr) {
     this.rows = arr
   },
 })
 
 export function useDatabaseStore() {
-  database.fetch()
+  storage.fetch()
+    .then((json) => database.import(json))
+
   return database
 }
