@@ -32,8 +32,8 @@ export const local = {
 
 export const php = {
   routes: {
-    fetch: `${import.meta.env.VITE_PHP_HOST}/server/fetch.php`,
-    store: `${import.meta.env.VITE_PHP_HOST}/server/store.php`,
+    fetch: `${setting.storage.php.host}/server/fetch.php`,
+    store: `${setting.storage.php.host}/server/store.php`,
   },
 
   fetch() {
@@ -54,7 +54,7 @@ export const php = {
 
 export const drive = {
   file: null,
-  name: import.meta.env.VITE_DRIVE_FILENAME ?? 'passwords-dev.json',
+  name: setting.storage.drive.filename,
 
   fetch() {
     if (this.file) {
@@ -85,7 +85,7 @@ export const drive = {
 }
 
 export function manager() {
-  const driver = import.meta.env.VITE_STORAGE
+  const driver = setting.storage.default
 
   return {
     local, php, link, drive,

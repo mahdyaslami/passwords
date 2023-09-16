@@ -20,7 +20,8 @@
   ],
   "globals": {
     "gapi": "readonly",
-    "google": "readonly"
+    "google": "readonly",
+    "setting": "readonly"
   },
   "settings": {
     "import/resolver": {
