@@ -90,9 +90,15 @@ const database = reactive({
   },
 })
 
+let fetched = false
 export function useDatabaseStore() {
-  storage.fetch()
-    .then((json) => database.import(json))
+  if (!fetched) {
+    storage.fetch()
+      .then((json) => {
+        database.import(json)
+        fetched = true
+      })
+  }
 
   return database
 }

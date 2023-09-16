@@ -57,29 +57,25 @@ export const drive = {
   name: setting.storage.drive.filename,
 
   fetch() {
-    if (this.file) {
-      return Promise.resolve(this.file.body)
-    }
-
     return prepare(this.name).then((result) => {
       this.file = result
-      return result.body
+      return result.content
     })
 
     async function prepare(name) {
       const file = {
         id: (await google.drive.findOrCreate(name)).id,
-        body: null,
+        content: null,
       }
 
-      file.body = google.drive.get(file.id)
+      file.content = google.drive.get(file.id)
 
       return file
     }
   },
 
   store(arr) {
-    this.file.body = arr
+    this.file.content = arr
     return google.drive.update(this.file.id, this.name, arr)
   },
 }
