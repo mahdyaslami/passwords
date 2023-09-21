@@ -20,7 +20,7 @@ const data = reactive({
 onMounted(() => {
   gapi.load('client', async () => {
     await gapi.client.init({
-      apiKey: import.meta.env.VITE_API_KEY,
+      apiKey: setting.oauth.google.apiKey,
       discoveryDocs: [DISCOVERY_DOC],
     })
 
@@ -28,7 +28,7 @@ onMounted(() => {
   })
 
   tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: import.meta.env.VITE_CLIENT_ID,
+    client_id: setting.oauth.google.clientId,
     scope: SCOPES,
     callback: '', // defined later
   })
