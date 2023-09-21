@@ -50,6 +50,7 @@
     "import/prefer-default-export": "off",
     "max-len": "warn",
     "max-classes-per-file": "off",
+    "no-alert": "off",
     "no-console": "warn",
     "no-debugger": "warn",
     "no-param-reassign": [

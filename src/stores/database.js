@@ -34,6 +34,15 @@ const database = reactive({
     storage.store(this.rows)
   },
 
+  remove(id) {
+    const index = this.rows.findIndex(
+      (el) => el.id == id,
+    )
+
+    this.rows.splice(index, 1)
+    storage.store(this.rows)
+  },
+
   hosts() {
     return this.rows.filter((r) => r.type === 'HOST')
   },
