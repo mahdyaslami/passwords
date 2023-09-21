@@ -95,7 +95,10 @@ export function useDatabaseStore() {
   if (!fetched) {
     storage.fetch()
       .then((json) => {
-        database.import(json)
+        if (Array.isArray(json)) {
+          database.import(json)
+        }
+
         fetched = true
       })
   }
